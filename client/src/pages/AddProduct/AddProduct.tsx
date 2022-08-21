@@ -38,9 +38,9 @@ function AddProduct() {
         try {
             const response = await axios.post("/products", newProduct);
 
-            title.clearinput()
-            price.clearinput()
-            category.clearinput()
+            title.clearInput()
+            price.clearInput()
+            category.clearInput()
             description.clearTextAreaValue()
             image.clearTextAreaValue()
             dispatch(addProduct(response.data));

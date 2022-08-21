@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react";
 interface InputReturn {
     value: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    clearinput : () => void
+    clearInput : () => void
 }
 
 function useInput(): InputReturn {
@@ -13,11 +13,11 @@ function useInput(): InputReturn {
         setValue(event.target.value);
     }
 
-    function clearinput() {
+    function clearInput() {
         setValue("")
     }
 
-    return { value, onChange, clearinput };
+    return { value, onChange, clearInput };
 }
 
 export default useInput;

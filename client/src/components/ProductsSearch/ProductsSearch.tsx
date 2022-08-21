@@ -19,7 +19,8 @@ function ProductsSearch() {
             className={style.input}
             type="search"
             placeholder="Type title for search"
-            {...input}
+            value={input.value}
+            onChange={input.onChange}
         />
     );
 }

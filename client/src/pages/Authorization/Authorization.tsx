@@ -52,7 +52,8 @@ function Authorization() {
                         className="ml-2 p-1 rounded border border-grey-800"
                         type="text"
                         id="username"
-                        {...inputName}
+                        value={inputName.value}
+                        onChange={inputName.onChange}
                     />
                 </li>
                 <li className="pb-2">
@@ -62,7 +63,8 @@ function Authorization() {
                         type="password"
                         id="password"
                         autoComplete=""
-                        {...inputPas}
+                        value={inputPas.value}
+                        onChange={inputPas.onChange}
                     />
                 </li>
                 <li>
