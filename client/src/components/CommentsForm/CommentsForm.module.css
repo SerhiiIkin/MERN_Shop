@@ -1,0 +1,14 @@
+.commentContainer {
+    @apply p-2 relative mb-2;
+}
+
+.commentContainer textarea {
+    @apply border p-2 rounded-md resize-none h-[100px] w-[300px];
+}
+
+.btnSend {
+    @apply border rounded py-1 px-2 bg-orange-500 mt-2 xl:hover:bg-green-600 xl:hover:outline-2 xl:hover:outline-gray-600 xl:hover:outline disabled:cursor-no-drop disabled:xl:hover:bg-red-800 disabled:xl:hover:outline-0
+}
+.error {
+    @apply absolute bottom-[10px] right-[10px]  text-center text-red-400;
+}

@@ -1,0 +1,6 @@
+.comment {
+    @apply border p-2 mb-2 rounded-md w-full;
+}
+.error {
+    @apply pt-14 pb-2 text-center text-red-400;
+}

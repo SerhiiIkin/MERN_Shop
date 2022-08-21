@@ -1,0 +1,13 @@
+.box {
+    @apply border border-gray-300 border-solid p-2 m-2 rounded-md flex flex-col max-w-[14rem] md:max-w-[16rem] 2xl:max-w-[18rem]  ;
+}
+p {
+    @apply pl-2 justify-self-end;
+}
+.link {
+    @apply cursor-pointer xl:hover:bg-green-400 rounded-md p-1;
+}
+
+.imgCard {
+    @apply max-w-[250px] max-h-[250px] mb-auto
+}
