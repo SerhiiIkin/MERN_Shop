@@ -1,5 +1,5 @@
 {
     "PORT": 5000,
-    "dbURL": "mongodb+srv://username:password@mern-2022.abp4lyz.mongodb.net/?retryWrites=true&w=majority",
+    "dbURL": "mongodb+srv://IkinSerhii:KBaW8M3buDhEdBw@mern-2022.abp4lyz.mongodb.net/?retryWrites=true&w=majority",
     "secretJwt" : "serhii"
 }

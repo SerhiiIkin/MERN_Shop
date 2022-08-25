@@ -68,6 +68,7 @@ export const authSlice = createSlice({
             localStorage.removeItem(TOKEN_KEY);
             localStorage.removeItem(USERNAME_KEY);
             localStorage.removeItem(EXPIRES_KEY);
+            localStorage.removeItem(USERROLE_KEY);
         },
     },
 });

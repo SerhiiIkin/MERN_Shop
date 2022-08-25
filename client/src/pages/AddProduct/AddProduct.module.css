@@ -1,8 +1,8 @@
 .input {
-    @apply border rounded p-1 ml-1 border-gray-300 focus:border-gray-800 text-sm
+    @apply border rounded p-1 ml-1 border-gray-300 focus:border-gray-800 text-sm w-60
 }
 .label {
-    @apply mb-2 flex;
+    @apply mb-2 flex flex-col
 }
 .error {
     @apply pt-2 text-red-400;
