@@ -7,8 +7,8 @@ interface ProductsState {
     products: IProducts[];
     filteredProducts: IProducts[];
     inputSearchValue: string;
-    minVal: string;
-    maxVal: string;
+    minValue: string;
+    maxValue: string;
 }
 
 const initialState: ProductsState = {
@@ -16,8 +16,8 @@ const initialState: ProductsState = {
     error: "",
     products: [],
     inputSearchValue: "",
-    minVal: "",
-    maxVal: "",
+    minValue: "0",
+    maxValue: "",
     filteredProducts: [],
 };
 
@@ -44,8 +44,8 @@ export const productsSlice = createSlice({
             // eslint-disable-next-line
             state.filteredProducts = state.products.filter((product) => {
                 if (
-                    +state.minVal < +product.price &&
-                    +product.price < +state.maxVal
+                    +state.minValue < +product.price &&
+                    +product.price < +state.maxValue
                 ) {
                     return product.title
                         .toLowerCase()
@@ -54,12 +54,12 @@ export const productsSlice = createSlice({
             });
         },
         setMinValue(state, action: PayloadAction<string>) {
-            state.minVal = action.payload;
+            state.minValue = action.payload;
             // eslint-disable-next-line
             state.filteredProducts = state.products.filter((product) => {
                 if (
-                    +state.minVal < +product.price &&
-                    +product.price < +state.maxVal
+                    +state.minValue < +product.price &&
+                    +product.price < +state.maxValue
                 ) {
                     return product.title
                         .toLowerCase()
@@ -68,12 +68,12 @@ export const productsSlice = createSlice({
             });
         },
         setMaxValue(state, action: PayloadAction<string>) {
-            state.maxVal = action.payload;
+            state.maxValue = action.payload;
             // eslint-disable-next-line
             state.filteredProducts = state.products.filter((product) => {
                 if (
-                    +state.minVal < +product.price &&
-                    +product.price < +state.maxVal
+                    +state.minValue < +product.price &&
+                    +product.price < +state.maxValue
                 ) {
                     return product.title
                         .toLowerCase()

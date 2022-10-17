@@ -7,11 +7,16 @@ import { useDebounce } from "./debounce";
 import { useAppDispatch, useAppSelector } from "./redux";
 
 function useInputMultiRange() {
-    const { products } = useAppSelector((state) => state.products);
-    const maxPriceProduct = Math.max(...products.map((el) => el.price)) + 1;
+    const { products, minValue, maxValue } = useAppSelector(
+        (state) => state.products
+    );
     const min = "0";
-    const max = Math.round(maxPriceProduct).toString();
-    const [minVal, setMinVal] = useState(min);
+    const max = Math.round(
+        Math.max(...products.map((el) => el.price)) + 1
+    ).toString();
+    console.log(maxValue);
+    
+    const [minVal, setMinVal] = useState(minValue);
     const [maxVal, setMaxVal] = useState(max);
     const minValRef = useRef<HTMLInputElement>(null);
     const maxValRef = useRef<HTMLInputElement>(null);

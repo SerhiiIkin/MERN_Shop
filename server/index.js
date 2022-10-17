@@ -5,7 +5,6 @@ import productsRouter from "./routes/products.routes.js";
 import commentsRouter from "./routes/comments.routes.js";
 import dotenv from "dotenv";
 import cors from "cors";
-import path from "path";
 
 const app = express();
 dotenv.config();
