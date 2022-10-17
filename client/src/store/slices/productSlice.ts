@@ -1,15 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IProducts } from "../../models/models";
+import { IProducts, ProductsState } from "../../models/models";
 
-interface ProductsState {
-    loading: boolean;
-    error: string;
-    products: IProducts[];
-    filteredProducts: IProducts[];
-    inputSearchValue: string;
-    minValue: string;
-    maxValue: string;
-}
+
 
 const initialState: ProductsState = {
     loading: false,

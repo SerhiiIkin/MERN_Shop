@@ -12,7 +12,7 @@ function ProductsSearch() {
 
     useEffect(() => {
         dispatch(setInputValueSearch(debouncedSearch));
-    }, [debouncedSearch,dispatch]);
+    }, [debouncedSearch, dispatch]);
 
     return (
         <input

@@ -14,10 +14,13 @@ function useInputMultiRange() {
     const max = Math.round(
         Math.max(...products.map((el) => el.price)) + 1
     ).toString();
-    console.log(maxValue);
-    
+
+    const getMaxValue = useCallback(() => {
+        if (maxValue !== "-Infinity") return maxValue;
+    }, [maxValue]);
+
     const [minVal, setMinVal] = useState(minValue);
-    const [maxVal, setMaxVal] = useState(max);
+    const [maxVal, setMaxVal] = useState(getMaxValue() || max);
     const minValRef = useRef<HTMLInputElement>(null);
     const maxValRef = useRef<HTMLInputElement>(null);
     const range = useRef<HTMLDivElement>(null);

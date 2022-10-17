@@ -6,11 +6,14 @@ import Paginate from "../Paginate/Paginate";
 import ProductsSearch from "../ProductsSearch/ProductsSearch";
 import ProductsTable from "../ProductsTable/ProductsTable";
 import NotFoundedProducts from "../NotFoundedProducts";
+import SelectPerPage from "../SelectPerPage/SelectPerPage";
+import useSelect from "../../hooks/useSelect";
 
 function ProductsBody() {
     const params = useParams();
     const idPage = params.id ? +params?.id - 1 : 0;
     const [page, setPage] = useState(idPage);
+    const select = useSelect();
 
     const { products, filteredProducts } = useAppSelector(
         (state) => state.products
@@ -31,10 +34,12 @@ function ProductsBody() {
         <>
             <ProductsSearch />
             <MultiRangeSlider />
+            <SelectPerPage select={select} />
             {filteredProducts.length ? (
                 <>
-                    <ProductsTable page={page} />
+                    <ProductsTable select={select} page={page} />
                     <Paginate
+                        select={select}
                         page={page}
                         lengthProducts={lengthProducts}
                         pageChangeHandler={pageChangeHandler}

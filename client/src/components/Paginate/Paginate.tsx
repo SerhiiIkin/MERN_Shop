@@ -1,17 +1,18 @@
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
-import { ITEMS_PER_PAGE } from "../../pages/ProductsPage/ProductsPage";
+import { SelectReturn } from "../../models/models";
 import style from "./Pagination.module.css";
 
 interface PropsPaginate {
     lengthProducts: number;
     page: number;
+    select: SelectReturn;
     pageChangeHandler: ({ selected }: { selected: number }) => void;
 }
 
-function Paginate({ pageChangeHandler, page, lengthProducts }: PropsPaginate) {
+function Paginate({ pageChangeHandler, page, select, lengthProducts }: PropsPaginate) {
     const navigate = useNavigate();
-    const pageCount = Math.ceil(lengthProducts / ITEMS_PER_PAGE);
+    const pageCount = Math.ceil(lengthProducts / +select.value);
     const currentPage = Math.min(pageCount, Math.max(page + 1, 1)) - 1;
 
     function onNavigateBtnClick(event: any) {

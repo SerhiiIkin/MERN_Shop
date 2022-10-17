@@ -6,13 +6,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchProducts } from "../../store/actions/productsActions";
 import style from "./ProductsPage.module.css";
 
-export const ITEMS_PER_PAGE = 3;
-
 function ProductsPage() {
     const dispatch = useAppDispatch();
-    const { error, loading } = useAppSelector(
-        (state) => state.products
-    );
+    const { error, loading } = useAppSelector((state) => state.products);
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -22,9 +18,7 @@ function ProductsPage() {
         <>
             {error && <ErrorMessage style={style.error} error={error} />}
             {loading && <Loader />}
-            {!error && !loading && (
-                <ProductsBody  />
-            )}
+            {!error && !loading && <ProductsBody />}
         </>
     );
 }

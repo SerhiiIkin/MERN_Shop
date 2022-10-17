@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export interface IProducts {
     _id?: number;
     title: string;
@@ -5,6 +7,16 @@ export interface IProducts {
     description: string;
     category: string;
     image: string;
+}
+
+export interface ProductsState {
+    loading: boolean;
+    error: string;
+    products: IProducts[];
+    filteredProducts: IProducts[];
+    inputSearchValue: string;
+    minValue: string;
+    maxValue: string;
 }
 
 export interface AuthState {
@@ -30,4 +42,9 @@ export interface IComments {
     username: string;
     body: string;
     date: string;
+}
+
+export interface SelectReturn {
+    value: string;
+    onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
