@@ -8,7 +8,7 @@ interface AuthResponse {
     user: {
         username: string;
         id: string;
-        role: string,
+        role: string;
     };
 }
 
@@ -29,13 +29,13 @@ export function login(data: AuthData) {
                 authSlice.actions.successLogin({
                     username: response.data.user.username,
                     token: response.data.token,
-                    role: response.data.user.role
+                    role: response.data.user.role,
                 })
             );
         } catch (error: any) {
-            console.log(error);
+            console.dir(error);
 
-            dispatch(authSlice.actions.fetchError(error.response.data.message));
+            dispatch(authSlice.actions.fetchError(error?.message || "cant login"));
         }
     };
 }

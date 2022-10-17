@@ -6,7 +6,7 @@
 }
 
 .burger {
-    @apply block w-[24px] h-[24px] z-30 absolute  cursor-pointer top-2 right-2 sm:hidden transition  duration-1000
+    @apply block w-[24px] h-[24px] z-30 absolute  cursor-pointer top-2 right-4 sm:hidden transition  duration-1000
 }
 
 .burger {
@@ -39,13 +39,13 @@
 }
 
 .burger__open {
-    @apply top-[-30px] right-2 transition ease-in duration-700
+    @apply top-[-30px] right-4 transition ease-in duration-700
 }
 .burger__open {
     @apply after:transition after:rotate-[45deg] after:duration-700 after:top-[20px] after:w-[15px] 
 }
 .burger__open {
-    @apply before:rotate-[-45deg] before:top-[15px] before:left-[10px] before:transition before:duration-700 before:w-[15px] before:top-[19px];
+    @apply before:rotate-[-45deg] before:left-[10px] before:transition before:duration-700 before:w-[15px] before:top-[19px];
 }
 
 .burger__open span {

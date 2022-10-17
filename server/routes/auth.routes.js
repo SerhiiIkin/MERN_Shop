@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import config from "config";
 import Role from "../models/Role.js";
 
 const router = new Router();
@@ -12,14 +11,19 @@ router.post(
     "/register",
     [
         check("username", "Can not be empty").notEmpty(),
-        check("password", "Password should be from 3 to 20 symbol").isLength({ min: 3, max: 20 }),
-        check("status", "Not correct status")
+        check("password", "Password should be from 3 to 20 symbol").isLength({
+            min: 3,
+            max: 20,
+        }),
+        check("status", "Not correct status"),
     ],
     async (req, res) => {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: "Not correct request" }, errors);
+                return res
+                    .status(400)
+                    .json({ message: "Not correct request" }, errors);
             }
 
             const { username, password } = req.body;
@@ -33,8 +37,12 @@ router.post(
             }
 
             const hashPassword = await bcrypt.hash(password, 4);
-            const userRole = await Role.findOne({value:"USER"})
-            const user = new User({ username, password: hashPassword, roles:[userRole.value] });
+            const userRole = await Role.findOne({ value: "USER" });
+            const user = new User({
+                username,
+                password: hashPassword,
+                roles: [userRole.value],
+            });
             await user.save();
 
             return res.json({ message: "User was created" });
@@ -58,7 +66,7 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ message: "Invalid password" });
         }
 
-        const token = jwt.sign({ id: user.id }, config.get("secretJwt"), {
+        const token = jwt.sign({ id: user.id }, process.env.secretJwt, {
             expiresIn: "1h",
         });
 
@@ -67,7 +75,7 @@ router.post("/login", async (req, res) => {
             user: {
                 id: user.id,
                 username: user.username,
-                role: user.roles[0]
+                role: user.roles[0],
             },
             message: "You enter in the system",
         });
@@ -78,11 +86,9 @@ router.post("/login", async (req, res) => {
 
 router.get("/users", async (req, res) => {
     try {
-       const users = await User.find()
-        res.json(users)
-    } catch (e) {
-        
-    }
-})
+        const users = await User.find();
+        res.json(users);
+    } catch (e) {}
+});
 
 export default router;

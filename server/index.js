@@ -2,24 +2,34 @@ import express from "express";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth.routes.js";
 import productsRouter from "./routes/products.routes.js";
-import  commentsRouter from "./routes/comments.routes.js";
-import config from "config";
-import cors from "cors"
+import commentsRouter from "./routes/comments.routes.js";
+import dotenv from "dotenv";
+import cors from "cors";
+import path from "path";
 
 const app = express();
-const PORT = config.get("PORT")
+dotenv.config();
 
-app.use(cors())
+const PORT = process.env.PORT || 6000;
+
+app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use(productsRouter);
-app.use(commentsRouter)
+app.use(commentsRouter);
 
+const __dirname = path.resolve();
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "/client/build")));
 
+    app.get("/*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
 
 async function start() {
-    await mongoose.connect(config.get("dbURL"))
+    await mongoose.connect(process.env.dbURL);
 
     try {
         app.listen(PORT, () => {
