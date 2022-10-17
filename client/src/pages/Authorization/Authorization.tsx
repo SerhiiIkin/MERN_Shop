@@ -15,8 +15,8 @@ function Authorization() {
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        token && navigate("/shop");
-        message && setIsError(true)
+        token && navigate("/");
+        message && setIsError(true);
     }, [token, navigate, message]);
 
     function isFormValid() {
@@ -29,7 +29,7 @@ function Authorization() {
             username: inputName.value,
             password: inputPas.value,
         };
-        
+
         isFormValid() ? dispatch(login(inputsUserData)) : setIsError(true);
     }
 
@@ -75,8 +75,7 @@ function Authorization() {
                     </button>
                     <button
                         onClick={onBtnRegisterClick}
-                        className="mr-2 border border-grey-400 rounded px-2 py-1 bg-green-400"
-                        >
+                        className="mr-2 border border-grey-400 rounded px-2 py-1 bg-green-400">
                         Register
                     </button>
                 </li>
@@ -87,8 +86,6 @@ function Authorization() {
                     />
                 )}
             </ul>
-
-            
         </form>
     );
 }

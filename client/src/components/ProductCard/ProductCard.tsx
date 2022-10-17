@@ -23,7 +23,7 @@ function ProductCard({ product }: {product: IProducts;}) {
                 <ImageCard imgCard={style.imgCard}  picLink={product?.image} />
             </Suspense>
             <p className="pt-2">
-                <Link className={style.link} to={`/shop/product/${product._id}`}>
+                <Link className={style.link} to={`/product/${product._id}`}>
                     More
                 </Link>
             </p>

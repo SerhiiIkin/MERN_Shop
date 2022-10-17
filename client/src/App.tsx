@@ -12,12 +12,12 @@ function App() {
             <Navigation />
             <div className="container mx-auto px-2 pt-14">
                 <Routes>
-                    <Route path={"/shop"} element={<ProductsPage />}>
+                    <Route path={"/"} element={<ProductsPage />}>
                         <Route path={"page=:id"} element={<ProductsPage />} />
                     </Route>
-                    <Route path={"/shop/authorization"} element={<Authorization/>}/>
-                    <Route path={"/shop/addProduct"} element={<AddProduct/>}/>
-                    <Route path={"/shop/product/:id"} element={<ProductDetailPage />} />
+                    <Route path={"/authorization"} element={<Authorization/>}/>
+                    <Route path={"/addProduct"} element={<AddProduct/>}/>
+                    <Route path={"/product/:id"} element={<ProductDetailPage />} />
                     <Route path={"*"} element={<NotFound />} />
                 </Routes>
             </div>

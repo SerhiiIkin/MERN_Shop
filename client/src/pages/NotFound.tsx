@@ -9,7 +9,7 @@ function NotFound() {
     useEffect(() => {
         seconds !== 0
             ? setTimeout(() => setSeconds(seconds - 1), 1000)
-            : navigate("/shop");
+            : navigate("/");
     }, [seconds, params, navigate]);
 
     return (

@@ -27,7 +27,7 @@ function Navigation() {
 
     return (
         <nav className={style.nav}>
-            <Link className={style.link} to={"/shop"}>
+            <Link className={style.link} to={"/"}>
                 Shop
             </Link>
 
@@ -43,16 +43,16 @@ function Navigation() {
                         active ? style.active : ""
                     )}>
                     {role === "ADMIN" && (
-                        <Link className={style.link} to={"/shop/addProduct"}>
+                        <Link className={style.link} to={"/addProduct"}>
                             Add product
                         </Link>
                     )}
 
-                    <Link className={style.link} to={"/shop"}>
+                    <Link className={style.link} to={"/"}>
                         Products
                     </Link>
                     {!isAuth && (
-                        <Link className={style.link} to={"/shop/authorization"}>
+                        <Link className={style.link} to={"/authorization"}>
                             Authorization
                         </Link>
                     )}

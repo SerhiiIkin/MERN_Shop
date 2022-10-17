@@ -17,7 +17,7 @@ function Paginate({ pageChangeHandler, page, lengthProducts }: PropsPaginate) {
     function onNavigateBtnClick(event: any) {
         const page = event.nextSelectedPage ? event.nextSelectedPage + 1 : 1;
 
-        navigate(`/shop/page=${page}`);
+        navigate(`/page=${page}`);
     }
 
     return (

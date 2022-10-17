@@ -18,16 +18,6 @@ app.use("/api/auth", authRouter);
 app.use(productsRouter);
 app.use(commentsRouter);
 
-const __dirname = path.resolve();
-
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "/client/build")));
-
-    app.get("/*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    });
-}
-
 async function start() {
     await mongoose.connect(process.env.dbURL);
 
