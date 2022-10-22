@@ -7,7 +7,7 @@ export function fetchProducts() {
     return async (dispatch: AppDispatch) => {
         try {
             dispatch(productsSlice.actions.fetching());
-            const response = await axios.get<IProducts[]>("products");
+            const response = await axios.get<IProducts[]>("api/products");
             dispatch(productsSlice.actions.fetchSuccess(response.data));
         } catch (e) {
             dispatch(productsSlice.actions.fetchError(e as Error));

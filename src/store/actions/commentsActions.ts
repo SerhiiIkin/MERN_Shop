@@ -7,7 +7,7 @@ export function fetchComments() {
     return async (dispatch: AppDispatch) => {
         try {
             dispatch(commentsSlice.actions.fetching());
-            const response = await axios.get<IComments[]>("comments");
+            const response = await axios.get<IComments[]>("api/comments");
             dispatch(commentsSlice.actions.fetchSuccess(response.data));
         } catch (e) {
             dispatch(commentsSlice.actions.fetchError(e as Error));

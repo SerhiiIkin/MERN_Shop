@@ -43,7 +43,7 @@ function CommentsForm() {
             body: textareaValue,
         };
 
-        const response = await axios.post("/comment", newComment);
+        const response = await axios.post("api/comment", newComment);
 
         dispatch(addComment(response.data));
         setTextareaValue("");

@@ -36,7 +36,7 @@ function AddProduct() {
         };
 
         try {
-            const response = await axios.post("/products", newProduct);
+            const response = await axios.post("api/product", newProduct);
 
             title.clearInput()
             price.clearInput()

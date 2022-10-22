@@ -24,7 +24,7 @@ function ProductDetailPage() {
     async function fetchProduct() {
         try {
             const response = await axios.get<IProducts>(
-                `/products/${param.id}`
+                `api/product/${param.id}`
             );
 
             setProduct(response.data);
