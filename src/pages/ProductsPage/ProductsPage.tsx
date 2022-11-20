@@ -1,9 +1,11 @@
 import { useEffect } from "react";
+
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Loader from "../../components/Loader/Loader";
 import ProductsBody from "../../components/ProductsBody/ProductsBody";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchProducts } from "../../store/actions/productsActions";
+
 import style from "./ProductsPage.module.css";
 
 function ProductsPage() {
@@ -14,13 +16,10 @@ function ProductsPage() {
         dispatch(fetchProducts());
     }, [dispatch]);
 
-    return (
-        <>
-            {error && <ErrorMessage style={style.error} error={error} />}
-            {loading && <Loader />}
-            {!error && !loading && <ProductsBody />}
-        </>
-    );
+    if (error) return <ErrorMessage style={style.error} error={error} />;
+    if (loading) return <Loader />;
+
+    return <ProductsBody />;
 }
 
 export default ProductsPage;

@@ -1,0 +1,38 @@
+.containerDialog {
+    @apply absolute top-0 left-0 z-30 bg-blue-300/90 h-full w-full flex items-center justify-center;
+}
+.wrapperContent {
+    @apply p-2 rounded;
+}
+
+.input {
+    @apply border rounded p-1 ml-1 border-gray-300 focus:border-gray-800 text-sm w-60;
+}
+.label {
+    @apply mb-2 flex flex-col;
+}
+.error {
+    @apply pt-2 text-red-400;
+}
+.areaInput {
+    @apply resize-none h-[100px];
+}
+
+.btnContainer {
+    @apply flex self-center;
+}
+
+.submitBtn {
+    @apply border p-1 rounded-lg bg-green-400 hover:bg-green-800 mr-2;
+}
+
+.cancelBtn {
+    @apply border p-1 rounded-lg bg-red-500 hover:bg-red-800;
+}
+.inputFIle {
+ @apply flex items-center rounded  outline-dashed p-2 mb-2
+}
+
+.imgPreview {
+ @apply w-[16rem] h-[16rem] mb-2 flex items-center justify-center
+}

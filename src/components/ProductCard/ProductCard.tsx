@@ -2,32 +2,20 @@ import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { IProducts } from "../../models/models";
 import Loader from "../Loader/Loader";
+
 import style from "./ProductCard.module.css";
 
-
-
-function ProductCard({ product }: {product: IProducts;}) {
+function ProductCard({ product }: { product: IProducts }) {
     const ImageCard = lazy(() => import("../ImageCard"));
-    
+
     return (
-        <div className={style.box}>
-            <p className="pb-2">
-                <strong>Title: </strong>
-                {product.title}
-            </p>
-            <p className="pb-2">
-                <strong>Price: </strong>
-                {product.price} $
-            </p>
+        <Link className={style.box} to={`/product/${product._id}`}>
             <Suspense fallback={<Loader />}>
-                <ImageCard imgCard={style.imgCard}  picLink={product?.image} />
+                <ImageCard styles={style.imgCard} picLink={product.image} />
             </Suspense>
-            <p className="pt-2">
-                <Link className={style.link} to={`/product/${product._id}`}>
-                    More
-                </Link>
-            </p>
-        </div>
+            <p className="pb-2">{product.title}</p>
+            <p className="pb-2 mb-auto">{product.price} $</p>
+        </Link>
     );
 }
 export default ProductCard;

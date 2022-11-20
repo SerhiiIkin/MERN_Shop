@@ -1,17 +1,23 @@
 import { MouseEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { authSlice } from "../../store/slices/authSlice";
+import { basketSlice } from "../../store/slices/basketSlice";
 import classNames from "classnames";
+
 import style from "./Navigation.module.css";
+import Basket from "../Basket/Basket";
 
 function Navigation() {
     const { isAuth, username, role } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
     const [active, setActive] = useState(false);
+    const navigate = useNavigate();
 
     function logoutHandler(event: MouseEvent<HTMLButtonElement>) {
         dispatch(authSlice.actions.logout());
+        dispatch(basketSlice.actions.logout());
+        navigate("/");
     }
 
     function menuBurgerHandler(event: MouseEvent<HTMLDivElement>) {
@@ -42,6 +48,13 @@ function Navigation() {
                         style.menu,
                         active ? style.active : ""
                     )}>
+                    {role && <Basket />}
+                    {role && (
+                        <Link className={style.link} to={"basket"}>
+                            Basket
+                        </Link>
+                    )}
+
                     {role === "ADMIN" && (
                         <Link className={style.link} to={"/addProduct"}>
                             Add product
@@ -51,12 +64,11 @@ function Navigation() {
                     <Link className={style.link} to={"/"}>
                         Products
                     </Link>
-                    {!isAuth && (
+                    {!isAuth ? (
                         <Link className={style.link} to={"/authorization"}>
                             Authorization
                         </Link>
-                    )}
-                    {isAuth && (
+                    ) : (
                         <>
                             <span className="font-bold px-1">{username}</span>
                             <button

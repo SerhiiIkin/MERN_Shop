@@ -1,23 +1,12 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { filterComments } from "../../store/actions/commentsActions";
+import { useAppSelector } from "../../hooks/redux";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
 import style from "./CommentsList.module.css";
 
 function CommentsList() {
-    const dispatch = useAppDispatch();
-    const { comments, filteredComments, loading, error } = useAppSelector(
+    const { comments, loading, error } = useAppSelector(
         (state) => state.comments
     );
-    const param = useParams<"id">();
-    const postId = param?.id ? param?.id : "";
-
-    useEffect(() => {
-        const filteredComments = comments.filter((el) => el.postId === postId);
-        dispatch(filterComments(filteredComments));
-    }, [dispatch, comments, postId]);
 
     return (
         <>
@@ -28,16 +17,17 @@ function CommentsList() {
                     error={"Cant get comments!"}
                 />
             )}
-            {filteredComments?.map((comment) => {
+            {comments?.map((comment) => {
+                const { _id, date, username, body } = comment;
                 return (
-                    <li className={style.comment} key={comment?.date}>
+                    <li className={style.comment} key={_id}>
                         <p>
-                            <strong>Comment from :</strong> {comment?.username}
+                            <strong>Comment from :</strong> {username}
                         </p>
                         <p>
-                            <strong>Time:</strong> {comment.date}
+                            <strong>Time:</strong> {date}
                         </p>
-                        <p>{comment?.body}</p>
+                        <p>{body}</p>
                     </li>
                 );
             })}

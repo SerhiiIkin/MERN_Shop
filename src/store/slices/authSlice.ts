@@ -4,7 +4,7 @@ import { AuthPayload, AuthPayloadRegister } from "../../models/models";
 const TOKEN_KEY = "TOKEN_KEY";
 const USERNAME_KEY = "USERNAME_KEY";
 const EXPIRES_KEY = "EXPIRES_KEY";
-const USERROLE_KEY = "USERROLE_KEY"
+const USERROLE_KEY = "USERROLE_KEY";
 
 function initialState() {
     const expiresIn = localStorage.getItem(EXPIRES_KEY) ?? null;
@@ -14,7 +14,7 @@ function initialState() {
             token: "",
             error: "",
             username: "",
-            role:"",
+            role: "",
             isAuth: false,
             message: "",
         };
@@ -36,9 +36,10 @@ export const authSlice = createSlice({
     reducers: {
         successLogin(state, action: PayloadAction<AuthPayload>) {
             state.error = "";
+            state.message = "";
             state.token = action.payload.token;
             state.username = action.payload.username;
-            state.role = action.payload.role
+            state.role = action.payload.role;
             state.isAuth = Boolean(action.payload.token);
 
             const tokenExpires = new Date(
@@ -48,7 +49,7 @@ export const authSlice = createSlice({
             localStorage.setItem(TOKEN_KEY, action.payload.token);
             localStorage.setItem(USERNAME_KEY, action.payload.username);
             localStorage.setItem(EXPIRES_KEY, tokenExpires.toString());
-            localStorage.setItem(USERROLE_KEY, action.payload.role)
+            localStorage.setItem(USERROLE_KEY, action.payload.role);
         },
         successRegister(state, action: PayloadAction<AuthPayloadRegister>) {
             state.error = "";
@@ -64,6 +65,8 @@ export const authSlice = createSlice({
             state.username = "";
             state.isAuth = false;
             state.error = "";
+            state.role = "";
+            state.message = "";
 
             localStorage.removeItem(TOKEN_KEY);
             localStorage.removeItem(USERNAME_KEY);

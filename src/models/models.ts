@@ -6,13 +6,14 @@ export interface IProducts {
     price: number;
     description: string;
     category: string;
-    image: string;
+    image?: string;
 }
 
 export interface ProductsState {
     loading: boolean;
     error: string;
     products: IProducts[];
+    product: IProducts;
     filteredProducts: IProducts[];
     inputSearchValue: string;
     minValue: string;
@@ -29,7 +30,7 @@ export interface AuthState {
 export interface AuthPayload {
     username: string;
     token: string;
-    role:string
+    role: string;
 }
 
 export interface AuthPayloadRegister {
@@ -48,3 +49,24 @@ export interface SelectReturn {
     value: string;
     onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
+
+export interface AuthData {
+    username: string;
+    password: string;
+}
+
+export type BasketState = {
+    basket: BasketItem[];
+    sum:number
+};
+
+export type BasketItem = {
+    title: string;
+    quantity: string;
+    price: string;
+};
+
+export type BasketChange = {
+    title: string;
+    operation: string;
+};

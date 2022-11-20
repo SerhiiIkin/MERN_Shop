@@ -1,3 +1,18 @@
 .error {
     @apply absolute bottom-0  text-center text-red-400;
 }
+.inputStyle {
+    @apply outline outline-1 outline-gray-400 rounded-md;
+}
+
+.btn {
+    @apply mr-2 rounded px-2 py-1 last:mr-0;
+}
+
+.errorStyleBtn {
+    @apply outline-red-400 outline-2 outline;
+}
+
+.list {
+    @apply flex flex-col items-center relative pb-6;
+}

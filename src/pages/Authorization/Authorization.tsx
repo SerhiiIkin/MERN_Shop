@@ -1,91 +1,165 @@
-import { FormEvent, MouseEvent, useEffect, useState } from "react";
+import classNames from "classnames";
+import { FormEvent, MouseEvent, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
+
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import useInput from "../../hooks/useInput";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { login, register } from "../../store/actions/authActions";
+import { AuthData } from "../../models/models";
+
 import style from "./Authorization.module.css";
 
 function Authorization() {
-    const inputName = useInput();
-    const inputPas = useInput();
+    const inputName = useRef<HTMLInputElement>(null);
+    const inputPas = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
-    const { error, token, message } = useAppSelector((state) => state.auth);
+    const { error, token } = useAppSelector((state) => state.auth);
     const navigate = useNavigate();
     const [isError, setIsError] = useState(false);
+    const [errorText, setErrorText] = useState("");
+    const [showPassword, setShowPassword] = useState(true);
+    const [inputNameError, setInputNameError] = useState(false);
+    const [inputPassError, setInputPassError] = useState(false);
 
     useEffect(() => {
-        token && navigate("/");
-        message && setIsError(true);
-    }, [token, navigate, message]);
+        if (token) {
+            toast("You successfully login in system!");
+            navigate("/");
+        }
+        error ? setErrorText(error) : setErrorText("");
+    }, [token, navigate, error]);
 
-    function isFormValid() {
-        return inputName.value.trim().length && inputPas.value.trim().length;
+    function isFormValid(inputName: string, inputPas: string) {
+        if (!inputName.trim().length && !inputPas.trim().length) {
+            setInputNameError(true);
+            setInputPassError(true);
+            return "Username and password are required!";
+        }
+        if (!inputName.trim().length) {
+            setInputNameError(true);
+            setInputPassError(false);
+            return "Username are required!";
+        }
+        if (!inputPas.trim().length) {
+            setInputNameError(false);
+            setInputPassError(true);
+            return "Password are required!";
+        } else {
+            setErrorText("");
+            setInputNameError(false);
+            setInputPassError(false);
+            return {
+                username: inputName,
+                password: inputPas,
+            };
+        }
     }
 
     function submitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const inputsUserData = {
-            username: inputName.value,
-            password: inputPas.value,
-        };
+        setErrorText("");
 
-        isFormValid() ? dispatch(login(inputsUserData)) : setIsError(true);
+        if (inputName.current && inputPas.current) {
+            const inputsUserData: string | AuthData = isFormValid(
+                inputName.current.value,
+                inputPas.current.value
+            );
+
+            if (typeof inputsUserData !== "string") {
+                dispatch(login(inputsUserData));
+                if (error) {
+                    setIsError(true);
+                    setErrorText(error);
+                }
+            } else {
+                setIsError(true);
+                setErrorText(inputsUserData);
+            }
+        }
     }
 
     function onBtnRegisterClick(event: MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
-        const inputsUserData = {
-            username: inputName.value,
-            password: inputPas.value,
-        };
+        setErrorText("");
 
-        isFormValid() ? dispatch(register(inputsUserData)) : setIsError(true);
+        if (inputName.current && inputPas.current) {
+            const inputsUserData: string | AuthData = isFormValid(
+                inputName.current.value,
+                inputPas.current.value
+            );
+
+            if (typeof inputsUserData !== "string") {
+                dispatch(register(inputsUserData));
+                if (error) {
+                    setIsError(true);
+                    setErrorText(error);
+                }
+            } else {
+                setIsError(true);
+                setErrorText(inputsUserData);
+            }
+        }
     }
 
     return (
-        <form onSubmit={submitHandler}>
-            <ul className="flex flex-col items-center relative pb-6">
-                <li className="pb-2">
-                    <label htmlFor="username">Username:</label>
+        <form onSubmit={submitHandler} className={style.list}>
+            <label htmlFor="username" className="pb-2">
+                Username:
+                <input
+                    className={classNames(
+                        style.inputStyle,
+                        " p-1 ml-2",
+                        inputNameError ? style.errorStyleBtn : ""
+                    )}
+                    type="text"
+                    id="username"
+                    autoFocus
+                    ref={inputName}
+                />
+            </label>
+
+            <label htmlFor="password" className="pb-2">
+                Password:
+                <span
+                    className={classNames(
+                        style.inputStyle,
+                        "relative ml-3.5",
+                        inputPassError ? style.errorStyleBtn : ""
+                    )}>
                     <input
-                        className="ml-2 p-1 rounded border border-grey-800"
-                        type="text"
-                        id="username"
-                        value={inputName.value}
-                        onChange={inputName.onChange}
-                    />
-                </li>
-                <li className="pb-2">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        className="ml-2 p-1 rounded border border-grey-800"
-                        type="password"
+                        className="focus:outline-none p-1"
+                        type={showPassword ? "password" : "text"}
                         id="password"
                         autoComplete=""
-                        value={inputPas.value}
-                        onChange={inputPas.onChange}
+                        ref={inputPas}
                     />
-                </li>
-                <li>
+
                     <button
-                        className="mr-2 border border-grey-400 rounded px-2 py-1 bg-blue-400"
-                        type="submit">
-                        Login
+                        type="button"
+                        className="absolute right-2 top-1/2 translate-y-[-50%]"
+                        onClick={() => setShowPassword((prev) => !prev)}>
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
                     </button>
-                    <button
-                        onClick={onBtnRegisterClick}
-                        className="mr-2 border border-grey-400 rounded px-2 py-1 bg-green-400">
-                        Register
-                    </button>
-                </li>
-                {(error || isError) && (
-                    <ErrorMessage
-                        style={style.error}
-                        error={error || message}
-                    />
-                )}
-            </ul>
+                </span>
+            </label>
+
+            <div>
+                <button
+                    className={classNames(style.btn, " bg-blue-400")}
+                    type="submit">
+                    Login
+                </button>
+                <button
+                    onClick={onBtnRegisterClick}
+                    type="button"
+                    className={classNames(style.btn, " bg-green-400")}>
+                    Register
+                </button>
+            </div>
+
+            {isError && <ErrorMessage style={style.error} error={errorText} />}
         </form>
     );
 }

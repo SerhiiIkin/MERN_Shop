@@ -1,9 +1,0 @@
-.btn {
-    @apply border mr-2 xl:hover:bg-blue-800 rounded-md;
-}
-.link {
-    @apply py-1 px-2;
-}
-.disBtn {
-    @apply bg-gray-300 xl:hover:bg-gray-300
-}

@@ -1,18 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IComments } from "../../models/models";
 
-interface CommentsState  {
-    loading: boolean
-    error: string
-    comments: IComments[]
-    filteredComments:IComments[]
+interface CommentsState {
+    loading: boolean;
+    error: string;
+    comments: IComments[];
 }
 
-const initialState:CommentsState = {
+const initialState: CommentsState = {
     loading: false,
     error: "",
     comments: [],
-    filteredComments: []
 };
 
 export const commentsSlice = createSlice({
@@ -23,21 +21,17 @@ export const commentsSlice = createSlice({
             state.loading = true;
         },
         fetchSuccess(state, action: PayloadAction<IComments[]>) {
-            state.loading = false
-            state.comments = action.payload
+            state.loading = false;
+            state.comments = action.payload;
         },
         fetchError(state, action: PayloadAction<Error>) {
-            state.loading = false
-            state.error = action.payload.message
-        },
-        filterComments(state, action: PayloadAction<IComments[]>) {
-            state.filteredComments = action.payload
+            state.loading = false;
+            state.error = action.payload.message;
         },
         addComment(state, action: PayloadAction<IComments>) {
-            state.comments.push(action.payload)
-        }
-        
+            state.comments.push(action.payload);
+        },
     },
 });
 
-export default commentsSlice.reducer
+export default commentsSlice.reducer;

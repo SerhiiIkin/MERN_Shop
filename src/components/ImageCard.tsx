@@ -1,6 +1,6 @@
-function ImageCard({ picLink, imgCard }: { picLink: string | undefined, imgCard: string }) {
+function ImageCard({ picLink, styles }: { picLink: string | undefined, styles: string }) {
     return (
-        <img className={imgCard} src={picLink} alt="product" />
+        <img className={styles} src={picLink} alt="product" />
     );
 }
 export default ImageCard;

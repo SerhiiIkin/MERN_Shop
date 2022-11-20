@@ -1,0 +1,20 @@
+
+.inputAmountProducts {
+    @apply p-2 border rounded mr-2;
+}
+
+.labelAmountProducts {
+    @apply relative mb-6;
+}
+
+.spanAmountProducts {
+    @apply absolute left-0 -bottom-8 text-red-600 w-full -translate-y-1/2;
+}
+
+.formAmountProduct {
+    @apply flex flex-col sm:flex-row;
+}
+
+.btnAddToBasket {
+    @apply bg-orange-400 xl:hover:bg-blue-400 rounded p-2;
+}

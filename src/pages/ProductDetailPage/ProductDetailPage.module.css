@@ -1,11 +1,11 @@
-.productBox {
+.wrapper {
     @apply flex flex-col items-center;
 }
 
-.productBox li {
+.wrapper li {
     padding-bottom: 5px;
 }
 
 .error {
-    @apply text-red-500 text-center pt-2
+    @apply text-red-500 text-center pt-2;
 }

@@ -1,8 +1,6 @@
+import { productsSlice } from './../store/slices/productSlice';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
-import {
-    setMaxValueRange,
-    setMinValueRange,
-} from "../store/actions/productsActions";
+
 import { useDebounce } from "./debounce";
 import { useAppDispatch, useAppSelector } from "./redux";
 
@@ -30,11 +28,11 @@ function useInputMultiRange() {
     const debouncedMaxVal = useDebounce<string>(maxVal.toString());
 
     useEffect(() => {
-        dispatch(setMinValueRange(debouncedMinVal));
+        dispatch(productsSlice.actions.setMinValue(debouncedMinVal));
     }, [dispatch, debouncedMinVal]);
 
     useEffect(() => {
-        dispatch(setMaxValueRange(debouncedMaxVal));
+        dispatch(productsSlice.actions.setMaxValue(debouncedMaxVal));
     }, [dispatch, debouncedMaxVal]);
 
     // Convert to percentage

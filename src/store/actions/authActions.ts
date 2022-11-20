@@ -1,6 +1,8 @@
 import { AppDispatch } from "..";
-import axios from "../../axios";
-import { AuthPayloadRegister } from "../../models/models";
+import axios  from "../../axios";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { AxiosError } from "axios";
+import { AuthData, AuthPayloadRegister } from "../../models/models";
 import { authSlice } from "../slices/authSlice";
 
 interface AuthResponse {
@@ -10,11 +12,6 @@ interface AuthResponse {
         id: string;
         role: string;
     };
-}
-
-interface AuthData {
-    username: string;
-    password: string;
 }
 
 export function login(data: AuthData) {
@@ -32,10 +29,9 @@ export function login(data: AuthData) {
                     role: response.data.user.role,
                 })
             );
-        } catch (error: any) {
-            console.dir(error);
-
-            dispatch(authSlice.actions.fetchError(error?.message || "cant login"));
+            dispatch(authSlice.actions.fetchError(""));
+        } catch (error: AxiosError | any) {
+            dispatch(authSlice.actions.fetchError(error.response.data.message));
         }
     };
 }
@@ -53,9 +49,7 @@ export function register(data: AuthData) {
                     message: response.data.message,
                 })
             );
-        } catch (error: any) {
-            console.log(error);
-
+        } catch (error: AxiosError | any) {
             dispatch(authSlice.actions.fetchError(error.response.data.message));
         }
     };

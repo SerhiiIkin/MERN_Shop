@@ -1,16 +1,18 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IComments } from "../../models/models";
-import style from "./CommentsForm.module.css";
+
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { addComment } from "../../store/actions/commentsActions";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import axios from "../../axios";
+import { addComment } from "../../store/actions/commentsActions";
+
+import style from "./CommentsForm.module.css";
+
 
 function CommentsForm() {
     const [textareaValue, setTextareaValue] = useState("");
     const param = useParams<"id">();
-    const postId = param?.id ? param?.id : "";
+    const postId = useMemo(() => (param?.id ? param?.id : ""), [param?.id]);
     const dispatch = useAppDispatch();
     const { username } = useAppSelector((state) => state.auth);
     const [isError, setIsError] = useState(false);
@@ -43,9 +45,7 @@ function CommentsForm() {
             body: textareaValue,
         };
 
-        const response = await axios.post("api/comment", newComment);
-
-        dispatch(addComment(response.data));
+        dispatch(addComment(newComment))
         setTextareaValue("");
     }
 

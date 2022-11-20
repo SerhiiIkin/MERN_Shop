@@ -6,28 +6,27 @@
 }
 
 .burger {
-    @apply block w-[24px] h-[24px] z-30 absolute  cursor-pointer top-2 right-4 sm:hidden transition  duration-1000
+    @apply block w-[24px] h-[24px] z-30 absolute  cursor-pointer top-2 right-8 sm:hidden transition  duration-1000;
 }
 
 .burger {
-    @apply before:content-[''] before:transition before:duration-1000 before:top-0 before:w-full before:h-[2px] before:absolute before:bg-black 
+    @apply before:content-[''] before:transition before:duration-1000 before:top-0 before:w-full before:h-[2px] before:absolute before:bg-black;
 }
 
 .burger {
-    @apply after:content-[''] after:w-full after:h-[2px] after:absolute after:bottom-0 after:bg-black after:transition after:duration-1000
+    @apply after:content-[''] after:w-full after:h-[2px] after:absolute after:bottom-0 after:bg-black after:transition after:duration-1000;
 }
-
 
 .burger span {
     @apply inline-block absolute top-[12px] bg-black w-full h-[2px];
 }
 
 .menu {
-    @apply hidden sm:block
+    @apply hidden sm:flex sm:items-center;
 }
 
 .active {
-    @apply flex flex-col py-2 items-center px-4 bg-blue-500 max-w-[100px] rounded-b absolute right-0
+    @apply flex flex-col py-2 items-center px-4 bg-blue-500  rounded-b absolute right-0;
 }
 
 .box__menu {
@@ -35,14 +34,14 @@
 }
 
 .box {
-    @apply transition duration-1000 ease-out
+    @apply transition duration-1000 ease-out;
 }
 
 .burger__open {
-    @apply top-[-30px] right-4 transition ease-in duration-700
+    @apply top-[-30px] right-8 transition ease-in duration-700;
 }
 .burger__open {
-    @apply after:transition after:rotate-[45deg] after:duration-700 after:top-[20px] after:w-[15px] 
+    @apply after:transition after:rotate-[45deg] after:duration-700 after:top-[20px] after:w-[15px];
 }
 .burger__open {
     @apply before:rotate-[-45deg] before:left-[10px] before:transition before:duration-700 before:w-[15px] before:top-[19px];
