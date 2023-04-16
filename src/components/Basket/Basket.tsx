@@ -1,45 +1,27 @@
 import classNames from "classnames";
-import { useState, useCallback, MouseEvent } from "react";
+import { useCallback, useState } from "react";
 import { SlBasket } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { BasketChange } from "../../models/models";
-import { basketSlice } from "../../store/slices/basketSlice";
+import {  useAppSelector } from "../../hooks/redux";
 
-import style from "./Basket.module.css";
+import style from "./Basket.module.scss";
+import OperationBtn from "../OperationsBtn/OperationBtn";
 
 function Basket() {
     const { basket, sum } = useAppSelector((state) => state.basket);
 
     const [active, setActive] = useState(false);
 
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const mouseBasket = useCallback((event: MouseEvent | any) => {
-        const type = event.type;
-
-        if (type === "click") {
-            if (active) setActive(false);
-            if (!active) setActive(true);
-        }
-        if (type === "mouseenter") setActive(true);
-        if (type === "mouseleave") setActive(false);
+    const onBasketClick = useCallback(() => {
+        active ? setActive(false) : setActive(true);
     }, [active]);
-
-    function onClickChangeAmountItems(title: string, operation: string) {
-        const item: BasketChange = {
-            title,
-            operation,
-        };
-        dispatch(basketSlice.actions.changeBasketItem(item));
-    }
 
     return (
         <span className={style.basketContainer}>
-            <SlBasket onClick={mouseBasket} onMouseEnter={mouseBasket} />
+            <SlBasket title="press to hold" onClick={onBasketClick} />
             <div
-                onMouseLeave={mouseBasket}
                 className={classNames(
                     style.basketBody,
                     active && style.basketOpen
@@ -66,27 +48,10 @@ function Basket() {
                                 <tr className={style.bodyList}>
                                     <td>{notLongTitle}</td>
                                     <td className={style.btnContainer}>
-                                        <button
-                                            onClick={() =>
-                                                onClickChangeAmountItems(
-                                                    title,
-                                                    "+"
-                                                )
-                                            }
-                                            className={style.btn}>
-                                            +
-                                        </button>
-                                        {quantity}
-                                        <button
-                                            onClick={() =>
-                                                onClickChangeAmountItems(
-                                                    title,
-                                                    "-"
-                                                )
-                                            }
-                                            className={style.btn}>
-                                            -
-                                        </button>
+                                        <OperationBtn
+                                            title={title}
+                                            quantity={quantity}
+                                        />
                                     </td>
                                     <td> {price} $</td>
                                 </tr>
@@ -99,11 +64,12 @@ function Basket() {
                     <>
                         <p>Full price: {sum} </p>
                         <button
+                            className={style.btn}
                             onClick={() => {
                                 navigate("basket");
                                 setActive(false);
                             }}
-                            className={style.btn}>
+                            >
                             Go to buy
                         </button>
                     </>

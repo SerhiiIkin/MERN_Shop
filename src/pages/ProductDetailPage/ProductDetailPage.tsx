@@ -22,9 +22,7 @@ import {
 function ProductDetailPage() {
     const dispatch = useAppDispatch();
     const { isAuth, role } = useAppSelector((state) => state.auth);
-    const { product, error, loading } = useAppSelector(
-        (state) => state.products
-    );
+    const { product, error, loading } = useAppSelector((state) => state.products);
     const { id } = useParams<"id">();
     const postId = String(id);
     const navigate = useNavigate();
@@ -79,7 +77,7 @@ function ProductDetailPage() {
                 <li>
                     <Suspense fallback={<Loader />}>
                         <ImageCard
-                            styles={"mx-auto w-[40vw] aspect-square"}
+                            styles={"mx-auto w-[35vw] aspect-square"}
                             picLink={product?.image}
                         />
                     </Suspense>
@@ -92,9 +90,9 @@ function ProductDetailPage() {
                     <strong>Product category: </strong> {product?.category}
                 </li>
                 <li>
-                    <strong>Product price: </strong> {product?.price}
+                    <strong>Product price:</strong> {product?.price}
                 </li>
-                {role && <AmountForm />}
+                {role ? <AmountForm product={product} postId={postId} /> : "You need to register for add product to basket!"}
             </ul>
             <ul className={style.wrapper}>
                 <CommentsList />

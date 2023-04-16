@@ -2,12 +2,19 @@ import { FormEvent, useMemo, useState } from "react";
 import useInput from "../../hooks/useInput";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { basketSlice } from "../../store/slices/basketSlice";
+import { IProducts } from "../../models/models";
 
 import style from "./AmountForm.module.css";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
-function AmountForm() {
-    const { product } = useAppSelector((state) => state.products);
+function AmountForm({
+    product,
+    postId,
+}: {
+    product: IProducts;
+    postId: string;
+}) {
     const { basket } = useAppSelector((state) => state.basket);
     const dispatch = useAppDispatch();
 
@@ -16,7 +23,7 @@ function AmountForm() {
     }, [basket, product.title]);
 
     const [isNotCorrectData, setIsNotCorrectData] = useState(false);
-    const amountInput = useInput("");
+    const amountInput = useInput("1");
 
     function submitHandlerAmountProduct(e: FormEvent) {
         e.preventDefault();
@@ -44,15 +51,17 @@ function AmountForm() {
 
     if (foundedItem)
         return (
-            <li className="mb-4 flex flex-col items-center">
-                Product was add to basket!
-                <p className="mt-2">
-                    <Link
-                        className="p-2 rounded bg-orange-400 xl:hover:bg-blue-500"
-                        to={"/"}>
-                        Go shop more
-                    </Link>
-                </p>
+            <li className="flex flex-col justify-center">
+                <span> Product was added!</span>
+                {postId && (
+                    <p className="my-2">
+                        <Link
+                            className="p-2 rounded bg-orange-400 xl:hover:bg-blue-500"
+                            to={"/"}>
+                            Go shop more
+                        </Link>
+                    </p>
+                )}
             </li>
         );
 
@@ -66,18 +75,16 @@ function AmountForm() {
                     id="amount"
                     value={amountInput.value}
                     onChange={amountInput.onChange}
-                    placeholder="Amount of product"
-                    className={style.inputAmountProducts}
+                    className={classNames(
+                        style.inputAmountProducts,
+                        isNotCorrectData &&
+                            "placeholder:text-red-300 border-red-400"
+                    )}
                 />
-                {isNotCorrectData && (
-                    <span className={style.spanAmountProducts}>
-                        You can enter only numbers
-                    </span>
-                )}
             </label>
             <span>
                 <button type="submit" className={style.btnAddToBasket}>
-                    Add to basket
+                    Add
                 </button>
             </span>
         </form>

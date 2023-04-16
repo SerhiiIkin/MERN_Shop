@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../hooks/redux";
 import ProductCard from "../ProductCard/ProductCard";
-import { Suspense, useCallback, useMemo } from "react";
+import { Suspense,  useMemo } from "react";
 import Loader from "../Loader/Loader";
 import { SelectReturn } from "../../models/models";
 
@@ -19,7 +19,7 @@ function ProductsTable({
         return page === 0 ? page : page * +select.value;
     }, [page, select.value]);
 
-    const showProducts = useCallback(() => {
+    const showProducts = useMemo(() => {
         return (
             filteredProducts?.length ? [...filteredProducts] : [...products]
         )
@@ -30,7 +30,7 @@ function ProductsTable({
     return (
         <div className="grid grid-cols-1 sm:grid-cols-3  md:grid-cols-4 xl:grid-cols-5 min-h-[400px] gap-2 mb-2">
             <Suspense fallback={<Loader />}>
-                {showProducts().map((product) => (
+                {showProducts.map((product) => (
                     <ProductCard product={product} key={product._id} />
                 ))}
             </Suspense>

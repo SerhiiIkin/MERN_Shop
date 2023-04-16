@@ -1,18 +1,18 @@
 
 .inputAmountProducts {
-    @apply p-2 border rounded mr-2;
+    @apply p-2 border rounded mr-2 max-w-[3rem];
 }
 
 .labelAmountProducts {
-    @apply relative mb-6;
+    @apply relative;
 }
 
 .spanAmountProducts {
-    @apply absolute left-0 -bottom-8 text-red-600 w-full -translate-y-1/2;
+    @apply absolute left-2 top-1/2 text-red-600 w-full -translate-y-1/2;
 }
 
 .formAmountProduct {
-    @apply flex flex-col sm:flex-row;
+    @apply flex items-center justify-center mt-auto ;
 }
 
 .btnAddToBasket {

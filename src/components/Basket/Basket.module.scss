@@ -1,0 +1,33 @@
+.basketContainer {
+    @apply relative mr-2;
+    svg {
+        @apply xl:hover:bg-red-400  rounded-md p-1 h-7 w-7 cursor-pointer hidden sm:block;
+    }
+    &:hover div {
+        @apply xl:flex;
+    }
+}
+
+.basketBody {
+    @apply absolute left-1/2 -translate-x-1/2 bg-blue-500 p-2  hidden flex-col min-w-max rounded-b-md text-center;
+}
+
+.basketOpen {
+    @apply sm:flex;
+}
+
+.bodyList {
+    @apply mb-2;
+}
+
+.bodyList td {
+    @apply p-1;
+}
+
+.containerList {
+    @apply flex text-xs flex-col;
+}
+
+.btn {
+    @apply bg-yellow-400 xl:hover:bg-green-400 rounded duration-500;
+}
