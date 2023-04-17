@@ -15,7 +15,7 @@ function ProductCard({ product }: { product: IProducts }) {
     return (
         <div className={style.box}>
             <Suspense fallback={<Loader />}>
-                <ImageCard styles={style.imgCard} picLink={product.image} />
+                <ImageCard styles="max-w-[250px] max-h-[250px]" picLink={product.image} />
             </Suspense>
             <p className="pb-2">{product.title}</p>
             <p className="pb-2 mb-auto">{product.price} $</p>
